@@ -30,8 +30,9 @@
 import Table from "../components/Table.vue";
 
 export default {
-  components: { Table },
-
+  components: {
+    Table,
+  },
   data() {
     return {
       doc: [

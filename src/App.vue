@@ -1,11 +1,13 @@
 <template>
-  <NavBar :categories="CATEGORIES" />
+<div>
+  <NavBar :categories="categories" />
+</div>
 </template>
 
 
 <script>
 import NavBar from "./components/NavBar.vue";
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
 export default {
   components: {
@@ -13,7 +15,7 @@ export default {
   },
   data() {
     return {
-      items: null,
+       items: null,
     };
   },
 
@@ -23,11 +25,11 @@ export default {
     ])
   },
   computed:{
-    ...mapGetters([
-      'CATEGORIES'
+    ...mapState([
+      'categories'
     ])
   },
-  mounted() {
+  created() {
     this.GET_CATEGORIES()
   },
 };

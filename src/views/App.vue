@@ -1,3 +1,11 @@
 <template>
-    <div>Mobile</div>
+    <div>
+    </div>
 </template>
+
+
+<script>
+export default {
+  
+}
+</script>

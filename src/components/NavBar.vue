@@ -11,7 +11,7 @@
       <v-list dense nav>
         <v-list-item
           v-for="category in categories"
-          :key="category.uuid"
+          :key="category.id"
           :to="category.path"
           link
         >
@@ -43,5 +43,6 @@ export default {
       drawer: null,
     };
   },
+  
 };
 </script>
