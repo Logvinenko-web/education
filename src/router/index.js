@@ -10,9 +10,8 @@ import Dashboard from '../views/Dashboard.vue'
 import Signer from '../views/Signer.vue'
 import Legal from '../views/Legal.vue'
 import Presentation_ukey from '../views/Presentation_ukey.vue'
-import Instr from '../views/Instr.vue'
-import PrivatBank from '../views/PrivatBank.vue'
-import Dps from '../views/Dps.vue'
+import One_C from '../views/One_C.vue'
+
 
 
 Vue.use(VueRouter)
@@ -69,20 +68,11 @@ const routes = [
     component: Presentation_ukey
   },
   {
-    path: '/instr',
-    name: 'instr',
-    component: Instr
+    path: '/1c',
+    name: '1c',
+    component: One_C
   },
-  {
-    path: '/privat-bank',
-    name: 'privat',
-    component: PrivatBank
-  },
-  {
-    path: '/dps',
-    name: 'dps',
-    component: Dps
-  },
+  
 ]
 
 const router = new VueRouter({

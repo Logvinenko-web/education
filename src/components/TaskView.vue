@@ -62,7 +62,7 @@ export default {
 
   methods: {
     removeTask(id) {
-      axios.delete("http://127.0.0.1:3000/tasks/" + id).then((res) => {
+      axios.delete("https://floating-retreat-11502.herokuapp.com/tasks/" + id).then((res) => {
         this.tasks.forEach((item, index) => {
           if (item.id == id) {
             this.tasks.splice(index, 1);
@@ -82,7 +82,7 @@ export default {
         index = 0;
       }
       axios
-        .put("http://127.0.0.1:3000/tasks/" + task.id, {
+        .put("https://floating-retreat-11502.herokuapp.com/tasks/" + task.id, {
           description: task.description,
           title: task.title,
           status: this.statuses[index],

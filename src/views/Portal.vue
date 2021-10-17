@@ -1,68 +1,36 @@
 <template>
-  <div class="pa-10">
-    <p class="font-weight-regular">
-      На порталі клієнт реєструється за допомогою ключа ецп(директора), яким він
-      підписує документи в кабінеті податкової.
-    </p>
-
-    <p class="font-weight-regular">
-      Після успішної реєстрації клієнт може синхронізувати дані с ДПС(Торгові
-      точки, каси, каси), якщо вони зараєстровані в ДПС
-    </p>
-    <p class="font-weight-regular">
-      Якщо таки данних немає, то клієнт може добавити (Торгові точки, каси,
-      каси) на порталі і вони автоматично будуть відображатись в дпс. Тобто ми
-      відправляємо ті самі форми які б клієнт заповнював в кабінеті податкової ,
-      тільки набагато в спрощеному вигляді.
-    </p>
-    <p class="font-weight-regular">
-      При відсутності даних в податковій, клієнту потрібно спочатку
-      зараєструвати Торгову точку, далі касу, в якій зможе вибрати зареєстровану
-      Торгову точку, і потім касира.
-    </p>
-    <p class="font-weight-regular">
-      Якщо сам ФОП і буде касиром, клієнт може зареєструвати на ецп фопа. Якщо
-      касирів буде більше ніж 1, тоді під кожного касира потрібно окремий ключ
-      ецп(печатка) і дані заявки підписувати ключем директора.
-    </p>
-    <p class="font-weight-regular">
-      Рекомендовано використовувати печатки для касирів, так як печатка не
-      прив'язана до ФІО касира.Тобто в поле ФІО можна вказати напр. Зміна 1 і
-      під цією печатко можуть по черзі працювати безліч касирів.
-    </p>
-    <p class="font-weight-regular">
-      При закінченню дії ключа ецп(печатки) касира, потрібно буде зареєструвати
-      нового касира на новий ключ, старого можна деактивувати.
-    </p>
-    <div>
-      <Table v-bind:doc="doc" />
-    </div>
+  <div>
+    <Tab
+      :new_tabs="new_tabs"
+      :new_explanation="new_explanation"
+      :tables="new_instructions"
+    />
   </div>
 </template>
 
 <script>
-import Table from "../components/Table.vue";
+import Tab from "../components/Tab.vue";
+import { mapState } from "vuex";
+import tabsHandler from "../mixin/tabsHandler";
 
 export default {
   components: {
-    Table,
+    Tab,
   },
   data() {
     return {
-      doc: [
-        {
-          name: "Тестовий портал чекбокс",
-          link: "https://dev-my.checkbox.in.ua",
-          description:
-            "Для входу на портал еmail: litak@email.com, пароль: qwerty",
-        },
-        {
-          name: "Інструкція",
-          link: "https://docs.google.com/document/d/19Qu5ZSgtHX2Enz4nFALYaxQzIOXoXG1N82NDZPBBWfI/edit?usp=sharing",
-          description: "",
-        },
-      ],
+      category_id: "bb7c70da-41d9-48cf-80de-e0c70a084b70",
+      new_tabs: [],
+      new_explanation: [],
+      new_instructions: [],
     };
+  },
+  mixins: [tabsHandler],
+  computed: {
+    ...mapState(["tabs", "explanation", "instructions"]),
+  },
+  created() {
+    this.get_tabs(this.tabs, this.category_id), this.get_explanation(this.explanation, this.category_id), this.get_instructions(this.instructions, this.category_id);
   },
 };
 </script>
