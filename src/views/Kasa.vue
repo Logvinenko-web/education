@@ -7,7 +7,6 @@
 <script>
 import Tab from "../components/Tab.vue";
 import { mapState } from "vuex";
-import tabsHandler from "../mixin/tabsHandler"
 export default {
   components: {
     Tab,
@@ -21,12 +20,16 @@ export default {
       new_instructions:[],
     };
   },
-  mixins:[tabsHandler],
   computed: {
     ...mapState(["tabs", "explanation", "instructions"]),
   },
+  methods: {
+add(){
+  console.log()
+}
+  },
   created() {
-    this.get_tabs(this.tabs, this.category_id), this.get_explanation(this.explanation, this.category_id), this.get_instructions(this.instructions, this.category_id);
+    this.add(), this.$get_tabs(this.tabs, this.$route.name), this.$get_explanation(this.explanation, this.$route.name), this.$get_instructions(this.instructions, this.$route.name);
   },
 };
 </script>

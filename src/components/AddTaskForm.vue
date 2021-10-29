@@ -32,13 +32,11 @@
       </v-card>
     </v-dialog>
   </div>
-
 </template>
 
 
 <script>
-import axios from "axios";
-import {mapActions, mapGetters, mapState} from 'vuex'
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   props: ["tasks"],
@@ -50,49 +48,19 @@ export default {
         description: "",
         title: "",
         status: "to-do",
-        //  item:[1,2,3,4]
       },
     };
   },
   methods: {
-     ...mapActions([
-      'CREATE_TASKS'
-    ]),
-   async addTask() {
-    //  await CREATE_TASKS(this.tasks)
-      
-      // this.task.title = "";
+    ...mapActions(["CREATE_TASKS"]),
+    async addTask() {
       this.loading = true;
-
-      axios
-        .post("https://floating-retreat-11502.herokuapp.com/tasks", this.task)
-        .then((response) => {
-          this.task.description = "";
-          this.task.title = "";
-          this.tasks.push(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  //   created() {
-  //   this.CREATE_TASKS();
-  // },
-  },
-  watch: {
-    tasks: function () {
+      await this.CREATE_TASKS(this.task);
       this.dialog = false;
       this.loading = false;
       this.task.description = "";
-
-
     },
   },
-  //  computed:{
-  //   ...mapGetters([
-  //     'TASKS'
-  //   ])
-  // },
 };
 </script>
 <style scoped>

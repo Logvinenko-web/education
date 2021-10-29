@@ -142,8 +142,12 @@ export default {
           this.education_tasks.push(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          alert(error);
+            this.loading = false;
+            this.dialog = false;
         });
+      this.loading = false;
+      this.dialog = false;
     },
     removeEducationTask(id) {
       axios
@@ -167,13 +171,7 @@ export default {
     this.GET_DAYS();
     this.GET_EDUCATION_TASKS();
   },
-  watch: {
-    education_tasks: function () {
-      //   GET_EDUCATION_TASKS()
-      this.loading = false;
-      this.dialog = false;
-    },
-  },
+
 };
 </script>
 

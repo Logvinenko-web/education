@@ -14,12 +14,11 @@
           <td
             class="description"
             :class="{ 'line-through': task.status === 'finished' }"
-          >
-            {{ task.description }}
-          </td>
+            :inner-html.prop="task.description | marked"
+          ></td>
           <td class="status">
             <span
-              class="pointer"          
+              class="pointer"
               @click="changeStatus(task)"
               :class="{
                 'red--text': task.status === 'to-do',
@@ -43,6 +42,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   props: ["tasks"],
@@ -61,14 +61,9 @@ export default {
   },
 
   methods: {
-    removeTask(id) {
-      axios.delete("https://floating-retreat-11502.herokuapp.com/tasks/" + id).then((res) => {
-        this.tasks.forEach((item, index) => {
-          if (item.id == id) {
-            this.tasks.splice(index, 1);
-          }
-        });
-      });
+    ...mapActions(["DELETE_TASKS"]),
+    async removeTask(id) {
+      await this.DELETE_TASKS(id);
     },
     changeStatus(task) {
       let index = 0;
@@ -99,6 +94,7 @@ export default {
       return this.tasks.filter((item) => item.title === title);
     },
   },
+  watch: {},
 };
 </script>
 

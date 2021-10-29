@@ -1,39 +1,32 @@
-<template>
-  <div class="pa-10">
-    <Table v-bind:doc="doc" />
+<template>  
+   <div>
+    <Tab :new_tabs="new_tabs" :new_explanation="new_explanation" :tables="new_instructions"/>
   </div>
 </template>
 
 <script>
-import Table from "../components/Table.vue";
+import Tab from "../components/Tab.vue";
+import { mapState } from "vuex";
+import tabsHandler from "../mixin/tabsHandler"
 
 export default {
-
-  components: { Table },
-
+  components: {
+    Tab,
+  },
   data() {
-    return {
-      doc: [
-        {
-          name: "ЗАКОН УКРАЇНИ",
-          link: "https://zakon.rada.gov.ua/laws/show/265/95-%D0%B2%D1%80#Text",
-          description:
-            "Про застосування реєстраторів розрахункових операцій у сфері торгівлі, громадського харчування та послуг",
-        },
-        {
-          name: "НАКАЗ № 306",
-          link: "https://zakon.rada.gov.ua/laws/show/z0624-20#Text",
-          description:
-            "Про внесення змін до наказу Міністерства фінансів України від 21 січня 2016 року № 13",
-        },
-        {
-          name: "НАКАЗ № 329",
-          link: "https://zakon.rada.gov.ua/laws/show/z0832-21#Text",
-          description:
-            "Про затвердження Змін до Положення про форму та зміст розрахункових документів / електронних розрахункових документів від 08.06.2021",
-        },
-      ],
+   return {
+      category_id:'ac796474-2809-4037-9bea-b83207e202cf',
+      new_tabs: [],
+      new_explanation: [],
+      new_instructions:[],
     };
+},
+ mixins:[tabsHandler],
+  computed: {
+    ...mapState(["tabs", "explanation", "instructions"]),
+  },
+  created() {
+    this.get_tabs(this.tabs, this.category_id), this.get_explanation(this.explanation, this.category_id), this.get_instructions(this.instructions, this.category_id);
   },
 };
 </script>
